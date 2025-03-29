@@ -31247,8 +31247,7 @@ async function run() {
       `POST /repos/${githubExports.context.repo.owner}/${githubExports.context.repo.repo}/issues`,
       {
         title: title,
-        body: body,
-        assignees: assignees ? assignees.split('\n') : undefined
+        body: body
       }
     );
     coreExports.setOutput('issue', response.data);

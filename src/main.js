@@ -18,8 +18,7 @@ export async function run() {
       `POST /repos/${github.context.repo.owner}/${github.context.repo.repo}/issues`,
       {
         title: title,
-        body: body,
-        assignees: assignees ? assignees.split('\n') : undefined
+        body: body
       }
     )
     core.setOutput('issue', response.data)
