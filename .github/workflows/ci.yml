@@ -61,6 +61,8 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           title: Test Issue
           body: Test issue body
+          assignees: |
+            templar315
 
       - name: Print Output
         id: output

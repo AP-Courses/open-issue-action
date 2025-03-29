@@ -14,13 +14,14 @@ export async function run() {
     const assignees = core.getInput('body')
 
     const octokit = github.getOctokit(token)
-    const response = await octokit.rest.issues.create({
-      owner: github.context.repo.owner,
-      repo: github.context.repo.repo,
-      title: title,
-      body: body,
-      assignees: assignees ? assignees.split('\n') : undefined
-    })
+    const response = await octokit.request(
+      `POST /repos/${github.context.repo.owner}/${github.context.repo.repo}/issues`,
+      {
+        title: title,
+        body: body,
+        assignees: assignees ? assignees.split('\n') : undefined
+      }
+    )
     core.setOutput('issue', response.data)
   } catch (error) {
     core.setFailed(error.message)

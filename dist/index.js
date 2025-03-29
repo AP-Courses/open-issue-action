@@ -31243,13 +31243,14 @@ async function run() {
     const assignees = coreExports.getInput('body');
 
     const octokit = githubExports.getOctokit(token);
-    const response = await octokit.rest.issues.create({
-      owner: githubExports.context.repo.owner,
-      repo: githubExports.context.repo.repo,
-      title: title,
-      body: body,
-      assignees: assignees ? assignees.split('\n') : undefined
-    });
+    const response = await octokit.request(
+      `POST /repos/${githubExports.context.repo.owner}/${githubExports.context.repo.repo}/issues`,
+      {
+        title: title,
+        body: body,
+        assignees: assignees ? assignees.split('\n') : undefined
+      }
+    );
     coreExports.setOutput('issue', response.data);
   } catch (error) {
     coreExports.setFailed(error.message);
